@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @State private var email = ""
     @State private var password  = ""
     
@@ -22,13 +23,16 @@ struct LoginView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 120, height: 120)
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                
                     .padding()
                 
                 VStack {
-                    TextField("Email", text: $email)
+                    TextField("Email", text: $email, prompt: Text("Required"))
                         .autocapitalization(.none)
+                        .disableAutocorrection(true)
                         .modifier(TextFieldModifier())
+                    
                     
                     SecureField("Password", text: $password)
                         .modifier(TextFieldModifier())
@@ -42,20 +46,15 @@ struct LoginView: View {
                         .fontWeight(.semibold)
                         .padding(.vertical)
                         .padding(.trailing)
-                        .foregroundColor(.black)
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 
                 Button {
-                    
+                    print($email, $password)
                 } label: {
                     Text("Login")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.white)
-                        .frame(width: 352, height: 44)
-                        .background(.black)
-                        .clipShape(.capsule)
+                        .modifier(ButtonModifier())
                 }
                 
                 Spacer()
@@ -71,7 +70,7 @@ struct LoginView: View {
                         Text("Sing Up")
                             .fontWeight(.semibold)
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .font(.footnote)
                     .padding(.vertical, 16)
                     

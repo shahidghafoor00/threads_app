@@ -7,14 +7,16 @@
 
 import SwiftUI
 
-struct ButtonModifiers: ViewModifier {
+struct ButtonModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
+    
     func body(content: Content) -> some View {
         content
             .font(.subheadline)
             .fontWeight(.semibold)
-            .foregroundStyle(.white)
+            .foregroundStyle(Color(.systemBackground))
             .frame(width: 352, height: 44)
-            .background(.black)
+            .background(colorScheme == .dark ? .white : .black)
             .clipShape(.capsule)
     }
     

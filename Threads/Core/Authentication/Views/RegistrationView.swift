@@ -9,10 +9,11 @@ import SwiftUI
 
 struct RegistrationView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @State private var email     = ""
     @State private var password  = ""
     @State private var username  = ""
-    @State private var fullname  = ""
+    @State private var fullName  = ""
     
     @Environment(\.dismiss) var dismiss
     var body: some View {
@@ -23,7 +24,7 @@ struct RegistrationView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 120, height: 120)
-                .foregroundColor(.black)
+                .foregroundColor(colorScheme == .dark ? .white: .black)
                 .padding()
             
             VStack {
@@ -33,7 +34,7 @@ struct RegistrationView: View {
                 SecureField("Password", text: $password)
                     .modifier(TextFieldModifier())
                 
-                TextField("Full Name", text: $fullname)
+                TextField("Full Name", text: $fullName)
                     .modifier(TextFieldModifier())
                 
                 TextField("username", text: $username)
@@ -43,12 +44,7 @@ struct RegistrationView: View {
                     
                 } label: {
                     Text("Sign Up")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.white)
-                        .frame(width: 352, height: 44)
-                        .background(.black)
-                        .clipShape(.capsule)
+                        .modifier(ButtonModifier())
                 }
                 .padding(.vertical)
                 
@@ -64,7 +60,7 @@ struct RegistrationView: View {
                         Text("Sing In")
                             .fontWeight(.semibold)
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .font(.footnote)
                 }
                 
